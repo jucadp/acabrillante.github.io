@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Recursos y técnicas para mejorar en Lenguaje en Academia Brillante. Mejora tu comprensión y expresión escrita.">
+    <meta name="keywords" content="lenguaje, comprensión lectora, técnicas de estudio, Academia Brillante">
+    <title>Lenguaje - Academia Brillante</title>
+    <style>
+        /* Reset y estilos básicos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            padding-bottom: 40px;
+        }
+        /* Encabezado */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        /* Navegación */
+        nav {
+            margin: 20px 0;
+            text-align: center;
+            background-color: #34495e;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        nav a {
+            color: #FFD700;
+            font-size: 1.2em;
+            padding: 10px 15px;
+            text-decoration: none;
+            margin: 0 15px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        /* Contenedor principal */
+        .container {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .container h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        /* Video */
+        .video-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .video-container iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+        /* Secciones de contenido */
+        .section {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        .section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .section li {
+            margin: 10px 0;
+        }
+        .extra-section {
+            background-color: #f9f9f9;
+        }
+        /* Cuestionario */
+        .quiz {
+            margin-top: 30px;
+        }
+        .quiz label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .quiz input[type="text"] {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #bdc3c7;
+        }
+        .quiz button {
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1em;
+        }
+        .quiz button:hover {
+            background-color: #27ae60;
+        }
+        .quiz-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 8px;
+            display: none;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        /* Pie de página */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+        }
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            nav a {
+                font-size: 1em;
+                padding: 8px 10px;
+            }
+            .container h2 {
+                font-size: 1.8em;
+            }
+            .quiz input[type="text"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header>
+        <h1>Lenguaje - Academia Brillante</h1>
+    </header>
+
+    <!-- Navegación -->
+    <nav>
+        <a href="index.html" aria-label="Ir al Inicio">Inicio</a>
+        <a href="matematicas.html" aria-label="Ir a Matemáticas">Matemáticas</a>
+        <a href="ciencias.html" aria-label="Ir a Ciencias">Ciencias</a>
+        <a href="lenguaje.html" aria-label="Ir a Lenguaje">Lenguaje</a>
+        <a href="historia.html" aria-label="Ir a Historia">Historia</a>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="container">
+        <h2>Técnicas y Recursos para Lenguaje</h2>
+        
+        <!-- Video -->
+        <section class="video-container">
+            <h3>Video: Estrategias para Mejorar la Comprensión Lectora</h3>
+            <iframe src="https://www.youtube.com/embed/TuVideoLenguaje" allowfullscreen aria-label="Video de estrategias para mejorar la comprensión lectora"></iframe>
+        </section>
+
+        <!-- Consejos -->
+        <section class="section">
+            <h3>Consejos para Mejorar en Lenguaje</h3>
+            <ul>
+                <li>Lee diariamente para mejorar tu vocabulario y comprensión.</li>
+                <li>Escribe resúmenes de lo que lees para mejorar la retención.</li>
+                <li>Participa en discusiones literarias para explorar diferentes puntos de vista.</li>
+                <li>Utiliza diccionarios y enciclopedias para aclarar dudas al instante.</li>
+                <li>Establece un horario de lectura constante para aumentar tu capacidad de concentración.</li>
+            </ul>
+        </section>
+
+        <!-- Métodos de Estudio -->
+        <section class="section">
+            <h3>Métodos de Estudio para Lenguaje</h3>
+            <ul>
+                <li>Método SQ3R: Explora, Pregunta, Lee, Recita y Revisa para una comprensión profunda.</li>
+                <li>Lectura crítica: Analiza y cuestiona lo que lees para una mayor comprensión.</li>
+                <li>Discusión en grupo: Compartir ideas mejora la interpretación de textos.</li>
+                <li>Mapas mentales: Usa mapas conceptuales para organizar ideas y temas literarios.</li>
+            </ul>
+        </section>
+
+        <!-- Recursos Adicionales -->
+        <section class="section extra-section">
+            <h3>Recursos Adicionales</h3>
+            <ul>
+                <li>Utiliza aplicaciones de lectura rápida para mejorar la velocidad y comprensión.</li>
+                <li>Accede a bibliotecas virtuales como Project Gutenberg para leer obras clásicas de manera gratuita.</li>
+                <li>Escucha audiolibros mientras haces otras actividades para aprovechar el tiempo al máximo.</li>
+            </ul>
+        </section>
+
+        <!-- Cuestionario -->
+        <section class="section quiz">
+            <h3>Cuestionario de Lenguaje</h3>
+            <form id="quiz-form">
+                <label for="question1">1. ¿Cuál es el sinónimo de "rápido"?</label>
+                <input type="text" id="question1" aria-label="Respuesta a la pregunta 1">
+                
+                <label for="question2">2. ¿Cómo se llama el análisis detallado de un texto para extraer su significado profundo?</label>
+                <input type="text" id="question2" aria-label="Respuesta a la pregunta 2">
+                
+                <label for="question3">3. ¿Cuál es el antónimo de "feliz"?</label>
+                <input type="text" id="question3" aria-label="Respuesta a la pregunta 3">
+                
+                <label for="question4">4. ¿Cómo se llama la narración breve con una enseñanza moral?</label>
+                <input type="text" id="question4" aria-label="Respuesta a la pregunta 4">
+                
+                <button type="button" onclick="checkAnswers()">Enviar Respuestas</button>
+            </form>
+            <div class="quiz-result" id="quiz-result"></div>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>© 2024 Academia Brillante. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- JavaScript optimizado -->
+    <script>
+        function checkAnswers() {
+            const answers = {
+                question1: ["veloz", "ligero", "rápido", "presto", "ágil"],
+                question2: ["análisis crítico", "crítica literaria", "exégesis", "interpretación profunda"],
+                question3: ["triste", "infeliz", "desdichado", "melancólico"],
+                question4: ["fábula", "parábola", "cuento moral", "apólogo"]
+            };
+
+            let correctAnswers = 0;
+
+            for (let i = 1; i <= 4; i++) {
+                const userAnswer = document.getElementById(`question${i}`).value.trim().toLowerCase();
+                if (answers[`question${i}`].includes(userAnswer)) {
+                    correctAnswers++;
+                }
+            }
+
+            const quizResult = document.getElementById("quiz-result");
+            quizResult.textContent = `Respondiste correctamente ${correctAnswers} de 4 preguntas.`;
+            quizResult.style.display = "block";
+            quizResult.style.backgroundColor = correctAnswers === 4 ? "#2ecc71" : "#e74c3c";
+        }
+    </script>
+
+</body>
+</html>

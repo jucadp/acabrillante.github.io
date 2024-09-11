@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Foro interactivo de Academia Brillante para compartir conocimientos y recursos educativos.">
+    <meta name="keywords" content="foro, educación, academia, estudiantes, TIC, herramientas educativas">
+    <meta name="author" content="Academia Brillante">
+    <title>Foro Interactivo - Academia Brillante</title>
+    <style>
+        /* Reset general */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Configuraciones básicas */
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        /* Encabezado */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            padding: 20px;
+            color: white;
+        }
+        header img {
+            width: 100px;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            color: #FFD700;
+        }
+
+        /* Navegación */
+        nav {
+            margin: 20px 0;
+            text-align: center;
+            background-color: #34495e;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        nav a {
+            color: #FFD700;
+            font-size: 1.2em;
+            padding: 10px 15px;
+            text-decoration: none;
+            margin: 0 15px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        /* Contenedor principal del foro */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        /* Formulario de publicación */
+        form {
+            margin-bottom: 30px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #34495e;
+        }
+
+        /* Publicaciones */
+        .post {
+            background-color: #f1c40f;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .post h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .post p {
+            margin: 10px 0;
+            color: #34495e;
+        }
+        .post button {
+            margin-right: 10px;
+        }
+
+        /* Respuestas */
+        .reply {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header>
+        <img src="imagen/éxito.png" alt="Logo Academia Brillante">
+        <div>
+            <h1>Academia Brillante</h1>
+            <p>"Ilumina tu camino hacia el éxito académico"</p>
+        </div>
+    </header>
+
+    <!-- Barra de navegación -->
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="foro.html">Foro</a>
+        <a href="cuenta.html">Crear Cuenta</a>
+    </nav>
+
+    <!-- Contenedor principal del foro -->
+    <div class="container">
+        <h2>Foro de Estudiantes - Comparte y Aprende</h2>
+
+        <!-- Formulario para crear un nuevo tema -->
+        <section id="newPost">
+            <h3>Crear un nuevo tema</h3>
+            <form id="postForm">
+                <input type="text" id="title" placeholder="Título del tema" required>
+                <textarea id="content" placeholder="Escribe aquí tu mensaje..." required></textarea>
+                <button type="submit">Publicar</button>
+            </form>
+        </section>
+
+        <!-- Sección para mostrar los temas del foro -->
+        <section id="forum">
+            <h3>Temas del foro</h3>
+            <div id="posts"></div>
+        </section>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2024 Academia Brillante. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Código JavaScript -->
+    <script>
+        // Obtener elementos del DOM
+        const postForm = document.getElementById('postForm');
+        const titleInput = document.getElementById('title');
+        const contentInput = document.getElementById('content');
+        const postsContainer = document.getElementById('posts');
+
+        // Cargar publicaciones desde LocalStorage si existen
+        let posts = JSON.parse(localStorage.getItem('posts')) || [];
+
+        // Renderizar todas las publicaciones guardadas
+        function renderPosts() {
+            postsContainer.innerHTML = '';
+            posts.forEach((post, index) => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post');
+
+                // Mostrar título, contenido y botones
+                postElement.innerHTML = `
+                    <h3>${post.title}</h3>
+                    <p>${post.content}</p>
+                    <button onclick="reply(${index})">Responder</button>
+                    <button onclick="vote(${index}, 1)">👍 ${post.votes}</button>
+                    <button onclick="vote(${index}, -1)">👎</button>
+                    <div id="replies-${index}">
+                        ${post.replies.map(reply => `<div class="reply">${reply}</div>`).join('')}
+                    </div>
+                `;
+                
+                postsContainer.appendChild(postElement);
+            });
+        }
+
+        // Función para agregar nueva publicación
+        postForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const title = titleInput.value;
+            const content = contentInput.value;
+
+            if (title && content) {
+                const newPost = {
+                    title,
+                    content,
+                    votes: 0,
+                    replies: []
+                };
+
+                posts.push(newPost);
+                localStorage.setItem('posts', JSON.stringify(posts));
+                titleInput.value = '';
+                contentInput.value = '';
+                renderPosts();
+            }
+        });
+
+        // Función para responder a una publicación
+        function reply(index) {
+            const replyContent = prompt('Escribe tu respuesta:');
+            if (replyContent) {
+                posts[index].replies.push(replyContent);
+                localStorage.setItem('posts', JSON.stringify(posts));
+                renderPosts();
+            }
+        }
+
+        // Función para votar publicaciones
+        function vote(index, value) {
+            posts[index].votes += value;
+            localStorage.setItem('posts', JSON.stringify(posts));
+            renderPosts();
+        }
+
+        // Inicializar renderizado de publicaciones
+        renderPosts();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda y Notificaciones Personalizadas</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            z-index: 1000;
+        }
+
+        .notification {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .notification.success {
+            background-color: #2ecc71;
+        }
+        .notification.error {
+            background-color: #e74c3c;
+        }
+        .notification.info {
+            background-color: #3498db;
+        }
+        .notification.warning {
+            background-color: #f39c12;
+        }
+
+        .notification button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .notification button:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .agenda {
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .agenda h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .agenda input, .agenda button {
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .agenda button {
+            background-color: #1abc9c;
+            color: white;
+            cursor: pointer;
+        }
+
+        .agenda button:hover {
+            background-color: #16a085;
+        }
+
+        .task-list {
+            margin-top: 20px;
+        }
+
+        .task {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task .delete-task {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Agenda -->
+    <div class="agenda">
+        <h2>Agregar Tareas a la Agenda</h2>
+        <input type="text" id="taskName" placeholder="Nombre de la tarea" required>
+        <input type="date" id="taskDate" required>
+        <button onclick="addTask()">Agregar Tarea</button>
+
+        <div class="task-list" id="taskList">
+            <!-- Lista de tareas dinámicamente generada -->
+        </div>
+    </div>
+
+    <script>
+        // Al cargar la página, mostrar las tareas guardadas
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTasks();
+            checkNotifications();
+        });
+
+        // Añadir tarea a la agenda y guardarla en localStorage
+        function addTask() {
+            const taskName = document.getElementById('taskName').value;
+            const taskDate = document.getElementById('taskDate').value;
+
+            if (taskName === '' || taskDate === '') {
+                alert('Por favor, completa todos los campos');
+                return;
+            }
+
+            const task = { name: taskName, date: taskDate };
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDate').value = '';
+
+            loadTasks();
+            checkNotifications();
+        }
+
+        // Cargar tareas desde localStorage y mostrarlas
+        function loadTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.forEach((task, index) => {
+                taskList.innerHTML += `
+                    <div class="task">
+                        <span>${task.name} - ${task.date}</span>
+                        <button class="delete-task" onclick="deleteTask(${index})">Eliminar</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Eliminar tarea
+        function deleteTask(index) {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.splice(index, 1);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            loadTasks();
+        }
+
+        // Revisar si hay notificaciones pendientes para las tareas
+        function checkNotifications() {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const today = new Date();
+
+            tasks.forEach(task => {
+                const taskDate = new Date(task.date);
+                const diffTime = taskDate - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                if (diffDays <= 2 && diffDays > 0) {
+                    showNotification('info', 'Próxima Tarea', `La tarea "${task.name}" es en ${diffDays} día(s).`);
+                }
+            });
+        }
+
+        // Mostrar notificación
+        function showNotification(type, title, message) {
+            const notification = document.createElement('div');
+            notification.classList.add('notification', type);
+
+            notification.innerHTML = `
+                <div>
+                    <strong>${title}</strong><br>
+                    <span>${message}</span>
+                </div>
+                <button onclick="closeNotification(this)">&times;</button>
+            `;
+
+            const container = document.getElementById('notificationContainer');
+            container.appendChild(notification);
+
+            setTimeout(() => {
+                closeNotification(notification);
+            }, 5000); // Cerrar automáticamente en 5 segundos
+        }
+
+        // Cerrar notificación
+        function closeNotification(element) {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                element.remove();
+            }, 300);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia - Academia Brillante</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            padding-bottom: 40px;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+            background-color: #34495e;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        nav a {
+            color: #FFD700;
+            font-size: 1.2em;
+            padding: 10px 15px;
+            text-decoration: none;
+            margin: 0 15px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .container h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+        .video-container {
+            margin-top: 20px;
+        }
+        .video-container iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 315px;
+            border: none;
+        }
+        .section {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .section li {
+            margin: 10px 0;
+        }
+        .extra-section {
+            background-color: #f9f9f9;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 40px;
+        }
+        /* Estilos del cuestionario */
+        .quiz-section {
+            margin-top: 30px;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .quiz-section h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        .quiz-question {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .quiz-options label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .quiz-result {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        button {
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Historia - Academia Brillante</h1>
+</header>
+
+<nav>
+    <a href="index.html">Inicio</a>
+    <a href="matematicas.html">Matemáticas</a>
+    <a href="ciencias.html">Ciencias</a>
+    <a href="lenguaje.html">Lenguaje</a>
+    <a href="historia.html">Historia</a>
+</nav>
+
+<div class="container">
+    <h2>Técnicas y Recursos para Historia</h2>
+    
+    <div class="video-container">
+        <h3>Video: Estrategias para Memorizar Fechas y Eventos</h3>
+        <iframe src="https://www.youtube.com/embed/TuVideoHistoria" allowfullscreen></iframe>
+    </div>
+
+    <div class="section">
+        <h3>Consejos para Aprender Historia</h3>
+        <ul>
+            <li>Relaciona eventos históricos con conceptos actuales para una mejor comprensión.</li>
+            <li>Usa líneas de tiempo para visualizar el orden cronológico de los eventos.</li>
+            <li>Estudia en bloques temáticos para una visión más clara de cada época.</li>
+            <li>Ve documentales y películas históricas para complementar tu aprendizaje.</li>
+            <li>Consulta fuentes primarias para obtener una perspectiva directa de los eventos históricos.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Métodos de Estudio</h3>
+        <ul>
+            <li>Uso de mapas mentales: Visualiza conexiones entre eventos y personajes históricos.</li>
+            <li>Método de narración: Recuenta hechos históricos como si estuvieras contando una historia.</li>
+            <li>Repetición espaciada: Revisa hechos clave en intervalos regulares para mejorar la retención.</li>
+            <li>Método comparativo: Compara eventos históricos entre diferentes culturas y épocas para una comprensión más profunda.</li>
+        </ul>
+    </div>
+
+    <div class="extra-section section">
+        <h3>Recursos Adicionales</h3>
+        <ul>
+            <li>Consulta archivos históricos en línea para obtener acceso a documentos originales.</li>
+            <li>Utiliza aplicaciones de líneas de tiempo para organizar y repasar cronologías de manera interactiva.</li>
+            <li>Escucha podcasts sobre historia para aprender mientras realizas otras actividades.</li>
+        </ul>
+    </div>
+
+    <!-- Cuestionario interactivo -->
+    <div class="quiz-section">
+        <h3>Cuestionario de Historia</h3>
+        <div class="quiz-question">¿En qué año ocurrió la Revolución Francesa?</div>
+        <div class="quiz-options">
+            <label><input type="radio" name="question1" value="incorrecto"> 1780</label>
+            <label><input type="radio" name="question1" value="correcto"> 1789</label>
+            <label><input type="radio" name="question1" value="incorrecto"> 1804</label>
+        </div>
+        <button onclick="verificarRespuesta()">Verificar Respuesta</button>
+        <div id="resultado" class="quiz-result"></div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2024 Academia Brillante. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    function verificarRespuesta() {
+        const opciones = document.getElementsByName('question1');
+        let resultado = document.getElementById('resultado');
+        let respuestaCorrecta = false;
+
+        opciones.forEach(opcion => {
+            if (opcion.checked && opcion.value === "correcto") {
+                respuestaCorrecta = true;
+            }
+        });
+
+        resultado.textContent = respuestaCorrecta ? 
+            "¡Correcto! La Revolución Francesa comenzó en 1789." : 
+            "Respuesta incorrecta. Intenta de nuevo.";
+        
+        resultado.style.color = respuestaCorrecta ? "green" : "red";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Personal - Academia Brillante</title>
+    <style>
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            padding: 20px;
+            color: white;
+        }
+        header img {
+            width: 100px;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            color: #FFD700;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .agenda-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .agenda, .completed-agenda {
+            background-color: #e74c3c;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px;
+            flex: 1;
+            max-width: 48%;
+        }
+        .agenda h3, .completed-agenda h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        .agenda input, .agenda textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        .agenda button {
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .tasks, .completed-tasks {
+            margin-top: 20px;
+        }
+        .task, .completed-task {
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: left;
+            position: relative;
+        }
+        .task-actions {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        .task-actions button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .task-actions button.complete {
+            background-color: #2ecc71;
+        }
+        .completed-task {
+            background-color: #95a5a6;
+            text-decoration: line-through;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .agenda, .completed-agenda {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="imagen/éxito.png" alt="Logo Academia Brillante">
+    <div>
+        <h1>Academia Brillante</h1>
+        <p>"Ilumina tu camino hacia el éxito académico"</p>
+    </div>
+</header>
+
+<a href="index.html" class="back-button">&#8592;</a>
+
+<div class="container">
+    <section class="agenda-section">
+        <article class="agenda">
+            <h3>Agregar Tarea</h3>
+            <!-- Selección de fecha y hora -->
+            <input type="datetime-local" id="task-datetime" placeholder="Fecha y hora de la tarea..." required>
+            <textarea id="task-input" placeholder="Escribe tu tarea..."></textarea>
+            <button id="add-task-btn">Agregar Tarea</button>
+            
+            <h3>Tareas</h3>
+            <div class="tasks" id="tasks-section">
+                <!-- Las tareas se mostrarán aquí -->
+            </div>
+        </article>
+
+        <aside class="completed-agenda">
+            <h3>Tareas Completadas</h3>
+            <div class="completed-tasks" id="completed-tasks-section">
+                <!-- Las tareas completadas se mostrarán aquí -->
+            </div>
+        </aside>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Academia Brillante. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    class TaskManager {
+        constructor() {
+            this.tasks = this.loadTasks("tasks") || [];
+            this.completedTasks = this.loadTasks("completedTasks") || [];
+            this.renderTasks();
+            this.checkNotifications(); // Checar notificaciones al iniciar
+        }
+
+        loadTasks(key) {
+            return JSON.parse(localStorage.getItem(key));
+        }
+
+        saveTasks() {
+            localStorage.setItem("tasks", JSON.stringify(this.tasks));
+            localStorage.setItem("completedTasks", JSON.stringify(this.completedTasks));
+        }
+
+        addTask(task) {
+            this.tasks.push(task);
+            this.saveTasks();
+            this.renderTasks();
+        }
+
+        completeTask(index) {
+            const [completedTask] = this.tasks.splice(index, 1);
+            this.completedTasks.push(completedTask);
+            this.saveTasks();
+            this.renderTasks();
+        }
+
+        deleteTask(index, isCompleted = false) {
+            if (isCompleted) {
+                this.completedTasks.splice(index, 1);
+            } else {
+                this.tasks.splice(index, 1);
+            }
+            this.saveTasks();
+            this.renderTasks();
+        }
+
+        renderTasks() {
+            this.renderSection("tasks-section", this.tasks, false);
+            this.renderSection("completed-tasks-section", this.completedTasks, true);
+        }
+
+        renderSection(sectionId, taskList, isCompleted) {
+            const section = document.getElementById(sectionId);
+            section.innerHTML = taskList.map((task, index) => `
+                <div class="${isCompleted ? 'completed-task' : 'task'}">
+                    <strong>${task.date}</strong>: ${task.text}
+                    <div class="task-actions">
+                        ${!isCompleted ? `<button class="complete" data-index="${index}">Completar</button>` : ""}
+                        <button data-index="${index}" data-completed="${isCompleted}">Eliminar</button>
+                    </div>
+                </div>`).join("");
+        }
+
+        // Checar si hay tareas con notificación pendiente
+        checkNotifications() {
+            const now = new Date();
+            this.tasks.forEach(task => {
+                const taskDate = new Date(task.date);
+                const timeDifference = taskDate - now;
+                const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+                
+                // Si faltan exactamente 2 días
+                if (daysDifference <= 2 && daysDifference >= 0) {
+                    this.showNotification('Recordatorio de tarea', `La tarea "${task.text}" es en ${Math.floor(daysDifference)} días`);
+                }
+            });
+        }
+
+        // Mostrar notificación
+        showNotification(title, message) {
+            const notification = new Notification(title, {
+                body: message,
+                icon: 'imagen/éxito.png'
+            });
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const taskManager = new TaskManager();
+
+        document.getElementById("add-task-btn").addEventListener("click", () => {
+            const taskInput = document.getElementById("task-input").value.trim();
+            const taskDatetime = document.getElementById("task-datetime").value;
+            if (taskInput && taskDatetime) {
+                taskManager.addTask({ date: taskDatetime, text: taskInput });
+                document.getElementById("task-input").value = "";
+                document.getElementById("task-datetime").value = "";
+            } else {
+                alert("Por favor, escribe una tarea y selecciona una fecha y hora válidas.");
+            }
+        });
+
+        document.getElementById("tasks-section").addEventListener("click", (event) => {
+            if (event.target.classList.contains("complete")) {
+                const index = event.target.dataset.index;
+                taskManager.completeTask(index);
+            } else if (event.target.tagName === "BUTTON") {
+                const index = event.target.dataset.index;
+                taskManager.deleteTask(index);
+            }
+        });
+
+        document.getElementById("completed-tasks-section").addEventListener("click", (event) => {
+            if (event.target.tagName === "BUTTON") {
+                const index = event.target.dataset.index;
+                taskManager.deleteTask(index, true);
+            }
+        });
+
+        // Solicitar permisos de notificación
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+    });
+</script>
+
+</body>
+</html>
